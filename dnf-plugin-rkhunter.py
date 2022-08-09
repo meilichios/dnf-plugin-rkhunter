@@ -23,13 +23,13 @@ class RkhunterPlugin(dnf.Plugin):
                 active = True
         except:
             raise dnf.exceptions.Error('dnf-plugin-rkhunter: hashes, attributes and properties must be disabled.')
+        
         if active and os.path.isfile(exe):
-            try:
-                self._out('dnf-plugin-rkhunter: running rkhunter --check ...')
-                os.system('%s --check --report-warnings-only' % exe)
-            except:
+            self._out('dnf-plugin-rkhunter: running rkhunter --check ...')
+            if os.system('%s --check --report-warnings-only' % exe) != 0:
                 raise dnf.exceptions.Error('dnf-plugin-rkhunter: rkhunter POSITIVE')
-            self._out('dnf-plugin-rkhunter: rkhunter OK')
+            else:
+                self._out('dnf-plugin-rkhunter: rkhunter OK')
     def transaction(self):
         global active
         exe = '/usr/bin/rkhunter'
