@@ -2,6 +2,7 @@ from dnfpluginscore import logger
 
 import os
 import dnf
+import re
 
 class RkhunterPlugin(dnf.Plugin):
 
