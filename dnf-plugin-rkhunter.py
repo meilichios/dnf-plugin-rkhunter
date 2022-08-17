@@ -12,7 +12,8 @@ class RkhunterPlugin(dnf.Plugin):
     def _out(self, msg):
         logger.debug('dnf-plugin-rkhunter: %s', msg)
 
-    def resolved(self):
+    #def resolved(self):
+    def pre_transaction(self):
         global active
         active = False
         exe= '/usr/bin/rkhunter'
